@@ -53,7 +53,7 @@ export class EmployeeSandbox {
     }
     formatDataForExcel(data:Array<any>,type:any) {
         const temp: any = [];
-        data.forEach((ele: any) => {            
+        data.forEach((ele: any) => {
             temp.push(this.getExcelColumns(type,ele));
         });
         return temp;
@@ -104,10 +104,10 @@ export class EmployeeSandbox {
         }
         return tempObject;
     }
-    
-    deleteRequest(params: any) {        
+
+    deleteRequest(params: any) {
         return this.service.deleteRequest(params.type,params.id).pipe(
-            tap((res: any) => {                
+            tap((res: any) => {
                 if(res?.deleteStatus === 1)
                 {
                   this.utilService.displayNotification('Deleted successfully','success')
@@ -115,48 +115,41 @@ export class EmployeeSandbox {
             })
         );
     }
-    
-    addUpdateSchemeTypes(params: any) {        
+
+    addUpdateSchemeTypes(params: any) {
         return this.service.addUpdateSchemeTypes(params);
     }
-    
+
     getSgsSchemeTypes() {
         return this.service.getSgsSchemeTypes();
-    }    
+    }
     getSettings() {
         return this.service.getSettings().pipe(
-            tap((res: any) => {                
+            tap((res: any) => {
                 if(res?.data)
                 {
                    res.data.data=JSON.parse(res.data.data);
                 }
             })
         );
-    }    
-      
-    updateSettings(params: any) {        
+    }
+    getSiteUpdates() {
+      return this.service.getSiteUpdates();
+  }
+
+  updateSiteUpdates(params: any) {
+    return this.service.updateSiteUpdates(params).pipe(
+        tap((res: any) => {
+            if(res?.data?.id >0)
+            {
+              this.utilService.displayNotification(res?.message,'success');
+            }
+        })
+    );
+}
+    updateSettings(params: any) {
         return this.service.updateSettings(params).pipe(
-            tap((res: any) => {                
-                if(res?.data?.id >0)
-                {
-                  this.utilService.displayNotification(res?.message,'success');
-                }
-            })
-        );
-    }  
-    addUpdateSchemes(params: any) {        
-        return this.service.addUpdateSchemes(params).pipe(
-            tap((res: any) => {                
-                if(res?.data?.id >0)
-                {
-                  this.utilService.displayNotification(res?.message,'success');
-                }
-            })
-        );
-    }  
-    addUpdateSchemeNames(params: any) {        
-        return this.service.addUpdateSchemeNames(params).pipe(
-            tap((res: any) => {                
+            tap((res: any) => {
                 if(res?.data?.id >0)
                 {
                   this.utilService.displayNotification(res?.message,'success');
@@ -164,19 +157,39 @@ export class EmployeeSandbox {
             })
         );
     }
-    addUpdateSchemeMembers(params: any) {        
-        return this.service.addUpdateSchemeMembers(params).pipe(
-            tap((res: any) => {                
+    addUpdateSchemes(params: any) {
+        return this.service.addUpdateSchemes(params).pipe(
+            tap((res: any) => {
                 if(res?.data?.id >0)
                 {
                   this.utilService.displayNotification(res?.message,'success');
                 }
             })
         );
-    } 
-    addUpdatePayment(params: any) {        
+    }
+    addUpdateSchemeNames(params: any) {
+        return this.service.addUpdateSchemeNames(params).pipe(
+            tap((res: any) => {
+                if(res?.data?.id >0)
+                {
+                  this.utilService.displayNotification(res?.message,'success');
+                }
+            })
+        );
+    }
+    addUpdateSchemeMembers(params: any) {
+        return this.service.addUpdateSchemeMembers(params).pipe(
+            tap((res: any) => {
+                if(res?.data?.id >0)
+                {
+                  this.utilService.displayNotification(res?.message,'success');
+                }
+            })
+        );
+    }
+    addUpdatePayment(params: any) {
         return this.service.addUpdatePayment(params).pipe(
-            tap((res: any) => {                
+            tap((res: any) => {
                 if(res?.data?.id >0)
                 {
                   this.utilService.displayNotification(res?.message,'success');
@@ -187,7 +200,7 @@ export class EmployeeSandbox {
 
     getSgsSchemes(params:any) {
         return this.service.getSgsSchemes(params).pipe(
-            tap((res: any) => {                
+            tap((res: any) => {
                 if (res?.data?.data) {
                    res.data.data=(res.data.data || []).map((value:any) => {
                     value.name=('Total Amount: '+value.total_amount)+', Months: '+value.no_of_months+', Payment Per Month:'+value.amount_per_month;
@@ -197,9 +210,9 @@ export class EmployeeSandbox {
             })
         );
     }
-    addUpdateUsers(params: any) {        
+    addUpdateUsers(params: any) {
         return this.service.addUpdateUsers(params).pipe(
-            tap((res: any) => {                
+            tap((res: any) => {
                 if(res?.data?.id >0)
                 {
                   this.utilService.displayNotification(res?.message,'success');
@@ -214,7 +227,7 @@ export class EmployeeSandbox {
     getSgsSchemeNames(params:any) {
         return this.service.getSgsSchemeNames(params);
     }
-    
+
     getSchemeMembers(params:any) {
         return this.service.getSchemeMembers(params);
     }
@@ -223,7 +236,7 @@ export class EmployeeSandbox {
     }
     getAllUsers(params:any) {
         return this.service.getSgsUsers(params).pipe(
-            tap((res: any) => {                
+            tap((res: any) => {
                 if (res?.data) {
                    res.data=(res?.data || []).filter((value:any) => value.userId!==this.currentUser.userId);
                 }

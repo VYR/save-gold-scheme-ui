@@ -1,9 +1,4 @@
 <div fxLayout="column" fxFlex="100">
-  <ng-container *ngIf="data?.userType===5">
-    <app-label-value [value]="'Description'"></app-label-value>
-    <st-editor [(ngModel)]="description" [config]="config"></st-editor>
-  </ng-container>
-  <app-label-value [value]="'Description Updated'"></app-label-value>
   <st-editor [(ngModel)]="descriptionUpdated" [config]="config"></st-editor>
   <div fxLayout="row" fxLayoutAlign="center" class="my-1">
     <button

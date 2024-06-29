@@ -19,15 +19,15 @@ export class SideMenuComponent {
             icon: 'las la-university',
             name: 'Promoters'
         },
-        // {
-        //     path:'/super-employee/scheme-members-list',
-        //     icon: 'las la-university',
-        //     name: 'Scheme Members'
-        // },        
         {
             path:'/employee/referral-amount',
             icon: 'las la-university',
             name: 'Referral Amount'
+        },
+        {
+            path:'/employee/site-updates',
+            icon: 'las la-university',
+            name: 'Site Updates'
         }
     ];
 
@@ -36,7 +36,7 @@ export class SideMenuComponent {
     currentUser: UserContext = new UserContext();
     constructor(private router:Router,appContext: ApplicationContextService, private sandbox: EmployeeSandbox, configService: ConfigService) {
         appContext.currentUser.subscribe((res) => {
-            this.currentUser = res;   
+            this.currentUser = res;
         });
     }
 

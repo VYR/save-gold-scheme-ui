@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { SchemeType, UserContext } from 'src/app/shared/models';
 import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
-import { AuthenticationService } from '../authentication/authentication.service'; 
+import { AuthenticationService } from '../authentication/authentication.service';
 import { UtilService } from 'src/app/utility';
 import * as moment from 'moment';
 import { MONTHS, RAZORPAY } from 'src/app/shared/constants/meta-data';
@@ -56,7 +56,7 @@ export class DeveloperSandbox {
     }
     formatDataForExcel(data:Array<any>,type:any) {
         const temp: any = [];
-        data.forEach((ele: any) => {            
+        data.forEach((ele: any) => {
             temp.push(this.getExcelColumns(type,ele));
         });
         return temp;
@@ -107,10 +107,10 @@ export class DeveloperSandbox {
         }
         return tempObject;
     }
-    
-    deleteRequest(params: any) {        
+
+    deleteRequest(params: any) {
         return this.service.deleteRequest(params.type,params.id).pipe(
-            tap((res: any) => {                
+            tap((res: any) => {
                 if(res?.deleteStatus === 1)
                 {
                   this.utilService.displayNotification('Deleted successfully','success')
@@ -118,48 +118,51 @@ export class DeveloperSandbox {
             })
         );
     }
-    
-    addUpdateSchemeTypes(params: any) {        
+
+    addUpdateSchemeTypes(params: any) {
         return this.service.addUpdateSchemeTypes(params);
     }
-    
+
     getSgsSchemeTypes() {
         return this.service.getSgsSchemeTypes();
-    }    
+    }
     getSettings() {
         return this.service.getSettings().pipe(
-            tap((res: any) => {                
+            tap((res: any) => {
                 if(res?.data)
                 {
                    res.data.data=JSON.parse(res.data.data);
                 }
             })
         );
-    }    
-      
-    updateSettings(params: any) {        
-        return this.service.updateSettings(params).pipe(
-            tap((res: any) => {                
-                if(res?.data?.id >0)
-                {
-                  this.utilService.displayNotification(res?.message,'success');
-                }
-            })
-        );
-    }  
-    addUpdateSchemes(params: any) {        
+    }
+    getSiteUpdates() {
+        return this.service.getSiteUpdates();
+    }
+
+    updateSiteUpdates(params: any) {
+      return this.service.updateSiteUpdates(params).pipe(
+          tap((res: any) => {
+              if(res?.data?.id >0)
+              {
+                this.utilService.displayNotification(res?.message,'success');
+              }
+          })
+      );
+  }
+  updateSettings(params: any) {
+      return this.service.updateSettings(params).pipe(
+          tap((res: any) => {
+              if(res?.data?.id >0)
+              {
+                this.utilService.displayNotification(res?.message,'success');
+              }
+          })
+      );
+  }
+    addUpdateSchemes(params: any) {
         return this.service.addUpdateSchemes(params).pipe(
-            tap((res: any) => {                
-                if(res?.data?.id >0)
-                {
-                  this.utilService.displayNotification(res?.message,'success');
-                }
-            })
-        );
-    }  
-    addUpdateSchemeNames(params: any) {        
-        return this.service.addUpdateSchemeNames(params).pipe(
-            tap((res: any) => {                
+            tap((res: any) => {
                 if(res?.data?.id >0)
                 {
                   this.utilService.displayNotification(res?.message,'success');
@@ -167,19 +170,29 @@ export class DeveloperSandbox {
             })
         );
     }
-    addUpdateSchemeMembers(params: any) {        
+    addUpdateSchemeNames(params: any) {
+        return this.service.addUpdateSchemeNames(params).pipe(
+            tap((res: any) => {
+                if(res?.data?.id >0)
+                {
+                  this.utilService.displayNotification(res?.message,'success');
+                }
+            })
+        );
+    }
+    addUpdateSchemeMembers(params: any) {
         return this.service.addUpdateSchemeMembers(params).pipe(
-            tap((res: any) => {                
+            tap((res: any) => {
                 if(res?.data)
                 {
                   this.utilService.displayNotification(res?.message,'success');
                 }
             })
         );
-    } 
-    addUpdatePayment(params: any) {        
+    }
+    addUpdatePayment(params: any) {
         return this.service.addUpdatePayment(params).pipe(
-            tap((res: any) => {                
+            tap((res: any) => {
                 if(res?.data?.id >0)
                 {
                   this.utilService.displayNotification(res?.message,'success');
@@ -190,7 +203,7 @@ export class DeveloperSandbox {
 
     getSgsSchemes(params:any) {
         return this.service.getSgsSchemes(params).pipe(
-            tap((res: any) => {                
+            tap((res: any) => {
                 if (res?.data?.data) {
                    res.data.data=(res.data.data || []).map((value:any) => {
                     value.name=('Total Amount: '+value.total_amount)+', Months: '+value.no_of_months+', Payment Per Month:'+value.amount_per_month;
@@ -200,9 +213,9 @@ export class DeveloperSandbox {
             })
         );
     }
-    addUpdateUsers(params: any) {        
+    addUpdateUsers(params: any) {
         return this.service.addUpdateUsers(params).pipe(
-            tap((res: any) => {                
+            tap((res: any) => {
                 if(res?.data?.id >0)
                 {
                   this.utilService.displayNotification(res?.message,'success');
@@ -216,7 +229,7 @@ export class DeveloperSandbox {
     }
     getSgsSchemeNames(params:any) {
         return this.service.getSgsSchemeNames(params).pipe(
-            tap((res: any) => {                
+            tap((res: any) => {
                 if (res?.data?.data) {
                    res.data.data=(res.data.data || []).map((value:any) => {
                     value.name=('Total Amount: '+value.total_amount)+', Months: '+value.no_of_months+', Payment Per Month:'+value.amount_per_month;
@@ -226,12 +239,12 @@ export class DeveloperSandbox {
             })
         );
     }
-    
+
     getSchemeMembers(params:any) {
         return this.service.getSchemeMembers(params).pipe(
-            tap((res: any) => {                
+            tap((res: any) => {
                 if (res?.data?.data) {
-                   res.data.data=(res.data.data || []).map((value:any) => {         
+                   res.data.data=(res.data.data || []).map((value:any) => {
                     value.schemeName=('Total Amount: '+value.total_amount)+', Months: '+value.no_of_months+', Payment Per Month:'+value.amount_per_month;
                     value.month=value.is_winner==='YES'?MONTHS[((new Date(value.scheme_date).getMonth())+value.winning_month)-1]:'';
                     return value;
@@ -245,7 +258,7 @@ export class DeveloperSandbox {
     }
     getAllUsers(params:any) {
         return this.service.getSgsUsers(params).pipe(
-            tap((res: any) => {                
+            tap((res: any) => {
                 if (res?.data) {
                    res.data=(res?.data || []).filter((value:any) => value.userId!==this.currentUser.userId);
                 }
@@ -275,9 +288,9 @@ export class DeveloperSandbox {
             }
           };
     }
-    download(params: any) {        
+    download(params: any) {
         return this.service.download(params).pipe(
-            tap((res: any) => { 
+            tap((res: any) => {
                 if (res.data.length > 0) {
                     this.utilService.downloadPdf(res.data, params.fileName);
                     this.utilService.displayNotification('PDF generated successfully!', 'success');
