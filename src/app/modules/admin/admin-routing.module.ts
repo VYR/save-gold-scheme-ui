@@ -5,6 +5,7 @@ import { SuperEmployeesListComponent } from './components/super-employees-list/s
 import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 import { PromotersListComponent } from './components/promoters-list/promoters-list.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { SiteUpdatesComponent } from './components/site-updates/site-updates.component';
 const routes: Routes = [
     {
         path: '',
@@ -33,6 +34,10 @@ const routes: Routes = [
             {
                 path: 'settings',
                 component:SettingsComponent
+            },
+            {
+                path: 'site-updates',
+                component:SiteUpdatesComponent
             },
             {
                 path: '',
