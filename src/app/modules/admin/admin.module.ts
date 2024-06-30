@@ -31,6 +31,9 @@ import { SgsUpdateUserComponent } from './components/sgs-update-user/sgs-update-
 import { SgsDetailsComponent } from './components/sgs-details/sgs-details.component';
 import { SgsSchemeDetailsComponent } from './components/sgs-scheme-details/sgs-scheme-details.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { SiteUpdatesComponent } from './components/site-updates/site-updates.component';
+import { SiteUpdateEditorComponent } from './components/site-update-editor/site-update-editor.component';
+import { NgxSimpleTextEditorModule } from 'ngx-simple-text-editor';
 
 
 @NgModule({
@@ -47,7 +50,9 @@ import { SettingsComponent } from './components/settings/settings.component';
     SgsAddFormsComponent,
     SgsEditFormsComponent,
     SgsSchemeDetailsComponent,
-    SettingsComponent
+    SettingsComponent,
+    SiteUpdatesComponent,
+    SiteUpdateEditorComponent
 
 
   ],
@@ -69,7 +74,8 @@ import { SettingsComponent } from './components/settings/settings.component';
     CKEditorModule,
     MatSidenavModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    NgxSimpleTextEditorModule
 
     
   ],

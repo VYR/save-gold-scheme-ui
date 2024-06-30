@@ -90,4 +90,14 @@ export class HomeService {
     download(params:any) { 
         return this.http.post(Operations.DOWNLOAD, params);
     }
+    getSiteUpdates() {
+        return this.http.get(Operations.GET_SITE_UPDATES);
+    }
+    updateSiteUpdates(params:any) {
+      if(params?.id)
+        return this.http.post(Operations.ADD_UPDATE_SITE_UPDATES, params,{id:params?.id || 0});
+    else
+      return this.http.post(Operations.ADD_UPDATE_SITE_UPDATES, params);
+    }
+
 }
