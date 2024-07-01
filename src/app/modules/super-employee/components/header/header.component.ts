@@ -13,7 +13,7 @@ import { ApplicationContextService } from 'src/app/shared/services/application-c
 export class HeaderComponent{
 
   showSideMenu:boolean=true;
- 
+
   USER_TYPE = USER_TYPE;
   iconMenus: Array<any> = [];
   public activeRouter: any;
@@ -27,7 +27,7 @@ export class HeaderComponent{
   ) {
       this.appContext.currentUser.subscribe((res: any) => (this.user = res));
       if(this.user?.userType>-1){
-          this.iconMenus = this.config.get('modules')[this.user.userType].filter((x: any) => x.location === 'header');
+          //this.iconMenus = this.config.get('modules')[this.user.userType].filter((x: any) => x.location === 'header');
           router.events.subscribe((event: any) => {
               this.activeRouter = event.url;
           });
