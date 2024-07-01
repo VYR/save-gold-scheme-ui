@@ -54,7 +54,7 @@
     "getUsers": {
         "baseUrl": "apiGateway",
         "path": "users"
-    },    
+    },
     "addUpdatePayment": {
         "baseUrl": "apiGateway",
         "path": "add-update-payment"
@@ -75,7 +75,7 @@
         "baseUrl": "apiGateway",
         "path": "common/settings"
     },
-    
+
     "deleteRecord": {
         "baseUrl": "apiGateway",
         "path": "common/delete"
@@ -83,5 +83,13 @@
     "download": {
         "baseUrl": "apiGateway",
         "path": "common/download"
-    }    
+    },
+    "addUpdateSiteUpdates": {
+        "baseUrl": "apiGateway",
+        "path": "add-update-site"
+    },
+    "getSiteUpdates": {
+        "baseUrl": "apiGateway",
+        "path": "get-site-updates"
+    }
 }

@@ -43,6 +43,11 @@ export class SideMenuComponent {
             path:'/admin/scheme-members-list',
             icon: 'las la-university',
             name: 'Scheme Members'
+        },
+        {
+            path:'/admin/site-updates',
+            icon: 'las la-university',
+            name: 'Site Updates'
         }
     ];
 

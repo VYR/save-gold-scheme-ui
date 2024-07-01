@@ -19,5 +19,7 @@ export enum Operations {
     ADD_UPDATE_SCHEME_MEMBERS='addUpdateSchemeMembers',
     GET_SCHEME_MEMBERS='getSchemeMembers',
     SETTINGS='settings',
+    GET_SITE_UPDATES='getSiteUpdates',
+    ADD_UPDATE_SITE_UPDATES='addUpdateSiteUpdates',
     DOWNLOAD='download'
 }

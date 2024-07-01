@@ -1,11 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {EditorConfig, ST_BUTTONS} from 'ngx-simple-text-editor';
-import { DeveloperSandbox } from '../../developer.sandbox';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UntypedFormBuilder } from '@angular/forms';
-import { SgsDialogService } from 'src/app/shared/services/sgs-dialog.service';
-import { Router } from '@angular/router';
-import { UtilService } from 'src/app/utility';
+import { SgsDialogService } from 'src/app/shared/services/sgs-dialog.service'; 
+import { UtilService } from 'src/app/utility'; 
+import { AdminSandbox } from '../../admin.sandbox';
 
 @Component({
   selector: 'app-site-update-editor',
@@ -24,7 +23,7 @@ export class SiteUpdateEditorComponent {
 
   constructor(public dialogRef: MatDialogRef<SiteUpdateEditorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private sandBox: DeveloperSandbox,
+    private sandBox: AdminSandbox,
     public fb: UntypedFormBuilder,
     private dialog: SgsDialogService,
     private utilService: UtilService

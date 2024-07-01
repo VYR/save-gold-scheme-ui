@@ -285,4 +285,19 @@ export class AdminSandbox {
             })
         );
     }
+
+    getSiteUpdates() {
+        return this.service.getSiteUpdates();
+    }
+  
+    updateSiteUpdates(params: any) {
+      return this.service.updateSiteUpdates(params).pipe(
+          tap((res: any) => {
+              if(res?.data?.id >0)
+              {
+                this.utilService.displayNotification(res?.message,'success');
+              }
+          })
+      );
+  }
 }
