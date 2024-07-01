@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SGSTableConfig, SGSTableQuery, ColumnType, SortDirection } from 'src/app/sgs-components/sgs-table/models/config.model';
 import { SgsDialogService, SgsDialogType } from 'src/app/shared/services/sgs-dialog.service';
-import { DeveloperSandbox } from '../../../../developer.sandbox'; 
+import { DeveloperSandbox } from '../../../../developer.sandbox';
 import { ROLES, STATUSES, USER_TYPES } from 'src/app/shared/constants/meta-data';
 import { DECISION, SYSTEM_CONFIG } from 'src/app/shared/enums';
 import { ApplicationContextService } from 'src/app/shared/services/application-context.service';
@@ -28,9 +28,9 @@ export class GroupComponent implements OnInit {
     statuses=[...['All'],...STATUSES];
     selectedSuperEmployee="";
     selectedEmployee="";
-    selectedPromoter="";  
+    selectedPromoter="";
     selectedStatus='active';
-    selectedScheme:any;  
+    selectedScheme:any;
     schemes:Array<any>=[];
     cols:Array<any>= [
         {
@@ -57,14 +57,15 @@ export class GroupComponent implements OnInit {
             key: 'scheme_name',
             displayName: 'Scheme',
             type: ColumnType.link,
-        }, 
+        },
         {
             key: 'scheme_date',
             displayName: 'Scheme Date',
-        },  
+        },
         {
           key: 'is_winner',
           displayName: 'Is Winner',
+          sortable: true,
         },
         {
             key: 'month',
@@ -87,18 +88,18 @@ export class GroupComponent implements OnInit {
             key: 'edit',
             displayName: 'Edit',
             type: ColumnType.icon,
-            icon: 'la-edit',          
+            icon: 'la-edit',
         },
         {
             key: 'delete',
             displayName: 'Delete',
             type: ColumnType.icon,
-            icon: 'la-trash',          
+            icon: 'la-trash',
         }
     ];
     constructor(private dialog: SgsDialogService, private sandbox: DeveloperSandbox, private appContext:ApplicationContextService) {
     }
-    ngOnInit(): void {            
+    ngOnInit(): void {
       this.getSuperEmployees();
       this.getSgsSchemeNames();
     }
@@ -106,13 +107,13 @@ export class GroupComponent implements OnInit {
         return data?.winning_month>0;
       }
     getSgsSchemeNames() {
-          let query:any={...this.query};     
+          let query:any={...this.query};
           query.schemeType=2;
-          query.pageSize=SYSTEM_CONFIG.DROPDOWN_PAGE_SIZE; 
-          this.sandbox.getSgsSchemes(query).subscribe((res:any) => {       
+          query.pageSize=SYSTEM_CONFIG.DROPDOWN_PAGE_SIZE;
+          this.sandbox.getSgsSchemes(query).subscribe((res:any) => {
               if(res?.data?.data){
                   this.schemes=res?.data?.data || [];
-              }      
+              }
           });
       }
   getSchemeMembers(event:any,scheme:any){
@@ -127,10 +128,10 @@ export class GroupComponent implements OnInit {
         let query:any={};
         query.userType=4;
         query.status='active';
-        query.pageSize=SYSTEM_CONFIG.DROPDOWN_PAGE_SIZE; 
+        query.pageSize=SYSTEM_CONFIG.DROPDOWN_PAGE_SIZE;
         this.sandbox.getSgsUsers(query).subscribe((res: any) => {
             if(res?.data){
-                this.superEmployees=res?.data?.data || [];      
+                this.superEmployees=res?.data?.data || [];
             }
         });
     }
@@ -138,12 +139,12 @@ export class GroupComponent implements OnInit {
         let query:any={};
         query.userType=3;
         query.status='active';
-        query.pageSize=SYSTEM_CONFIG.DROPDOWN_PAGE_SIZE;       
+        query.pageSize=SYSTEM_CONFIG.DROPDOWN_PAGE_SIZE;
         if(this.selectedSuperEmployee.length>0)
         query.introducedBy=this.selectedSuperEmployee;
         this.sandbox.getSgsUsers(query).subscribe((res: any) => {
             if(res?.data)
-              this.employees=res?.data?.data || [];          
+              this.employees=res?.data?.data || [];
         });
     }
     getPromoters() {
@@ -151,12 +152,12 @@ export class GroupComponent implements OnInit {
         console.log(query);
         query.userType=2;
         query.status='active';
-        query.pageSize=SYSTEM_CONFIG.DROPDOWN_PAGE_SIZE;       
+        query.pageSize=SYSTEM_CONFIG.DROPDOWN_PAGE_SIZE;
         if(this.selectedEmployee.length>0)
         query.introducedBy=this.selectedEmployee;
         this.sandbox.getSgsUsers(query).subscribe((res: any) => {
             if(res?.data)
-              this.promoters=res?.data?.data || [];          
+              this.promoters=res?.data?.data || [];
         });
     }
   lazyLoad(event: SGSTableQuery) {
@@ -171,14 +172,14 @@ export class GroupComponent implements OnInit {
   updateSelectedSuperEmployee(event:any,id:any){
       if(event.isUserInput){
           this.selectedSuperEmployee=id;
-          this.sortedData=[]; 
+          this.sortedData=[];
           this.getEmployees();
       }
   }
   updateSelectedEmployee(event:any,id:any){
       if(event.isUserInput){
           this.selectedEmployee=id;
-          this.sortedData=[]; 
+          this.sortedData=[];
           this.getPromoters();
       }
   }
@@ -194,23 +195,23 @@ export class GroupComponent implements OnInit {
           this.getSgsUsers();
       }
   }
-  
+
   getSgsUsers() {
-    this.sortedData=[];        
+    this.sortedData=[];
       let query:any={...this.query};
       query.userType=0;
       if(this.selectedStatus!=='All'){
           query.status=this.selectedStatus;
-      }    
+      }
       if(this.selectedPromoter.length>0)
-        query.introducedBy=this.selectedPromoter;  
-        query.schemeType=2;  
+        query.introducedBy=this.selectedPromoter;
+        query.schemeType=2;
         query.scheme_id=this.selectedScheme?.id || 0;
-        if(query.scheme_id>0) 
+        if(query.scheme_id>0)
       this.sandbox.getSchemeMembers(query).subscribe((res: any) => {
           if(res?.data){
             this.sortedData=res?.data?.data || [];
-            const total:any=res?.data?.total || 0;      
+            const total:any=res?.data?.total || 0;
             this.tableConfig = {
                 columns: this.cols,
                 data: this.sortedData,
@@ -221,14 +222,14 @@ export class GroupComponent implements OnInit {
             };
           }
       });
-      else 
+      else
       this.sortedData=[];
-    
+
   }
-  
-  
+
+
   onSelect(event: any) {}
-  
+
   onClickCell(event: any) {
       console.log(event);
       if (event.key === 'delete') {
@@ -253,24 +254,24 @@ export class GroupComponent implements OnInit {
                 this.getSgsUsers();
             }
         });
-      } 
+      }
       else if (event.key === 'edit') {
           const data={...event.data};
-          const ref = this.dialog.openOverlayPanel('Update Scheme Member', 
+          const ref = this.dialog.openOverlayPanel('Update Scheme Member',
           SgsEditFormsComponent, {type:'users', data:data},SgsDialogType.medium);
           ref.afterClosed().subscribe((res) => {
               if(res?.id>0)
               this.getSgsUsers();
-          }); 
+          });
       }
   }
-  
+
   compare(a: number | string, b: number | string, isAsc: boolean) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
-  
+
   addUsers(){
-  const ref = this.dialog.openOverlayPanel('Add Group Scheme Member', 
+  const ref = this.dialog.openOverlayPanel('Add Group Scheme Member',
     SgsAddFormsComponent, {
       type:'users',
       data:{
@@ -302,12 +303,12 @@ export class GroupComponent implements OnInit {
       }
   });
   }
-  
+
   downloadExcel(){
   this.sandbox.downloadExcel(this.sortedData,'users','Users');
   }
-  
-  
+
+
   }
 
 
