@@ -1,0 +1,39 @@
+<app-outlet-container>
+    <app-master-container>
+        <ng-container header>
+               Site Updates
+        </ng-container>
+        <ng-container icons>
+            <button mat-icon-button (click)="updateSettings()" *ngIf="selectedWebsite">
+                <i class="las la-edit"></i>
+            </button>
+        </ng-container>
+        <ng-container body>
+          <div fxLayout="column" fxFlex="100">
+            <div fxLayout="row" fxFlex="100">
+                <mat-form-field class="width-1">
+                    <mat-label>Select Website</mat-label>
+                    <mat-select [(ngModel)]="selectedWebsite">
+                        <mat-option
+                        (onSelectionChange)="getWebsite($event,null)"
+                        [value]="0">Select Website
+                        </mat-option>
+                        <mat-option
+                        (onSelectionChange)="getWebsite($event,site)"
+                        *ngFor="let site of  websites" [value]="site">{{
+                            site.siteName
+                        }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <app-label-value [value]="'Original'"></app-label-value>
+            <div fxLayout="column" fxFlex="100" [innerHTML]="selectedWebsite?.description"></div>
+            <app-label-value [value]="'Updated'"></app-label-value>
+            <div fxLayout="column" fxFlex="100" [innerHTML]="selectedWebsite?.descriptionUpdated"></div>
+          </div>
+        </ng-container>
+    </app-master-container>
+</app-outlet-container>
+
+
+
